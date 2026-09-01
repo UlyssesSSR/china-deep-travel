@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #C0392B;
+    --color-primary-dark: #922B21;
+    --color-secondary: #1A1A2E;
+    --color-accent: #E67E22;
+    --color-background: #FAFAF8;
+    --color-surface: #FFFFFF;
+    --color-border: #E8E4DF;
+    --color-text-primary: #1A1A2E;
+    --color-text-secondary: #6B7280;
+    --color-text-muted: #9CA3AF;
+    --color-success: #27AE60;
+    --color-warning: #F39C12;
+    --color-error: #E74C3C;
+    --color-locked: #6B7280;
+    --color-gold: #F1C40F;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-text-primary font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-secondary;
+  }
+}
+
+@layer components {
+  /* Article rich content styles */
+  .prose-article {
+    @apply text-text-primary leading-relaxed;
+  }
+
+  .prose-article h2 {
+    @apply font-display text-2xl font-semibold text-secondary mt-10 mb-4;
+  }
+
+  .prose-article h3 {
+    @apply font-display text-xl font-semibold text-secondary mt-8 mb-3;
+  }
+
+  .prose-article p {
+    @apply mb-6 text-base leading-8;
+  }
+
+  .prose-article a {
+    @apply text-primary underline hover:text-primary-dark transition-colors duration-150;
+  }
+
+  .prose-article ul {
+    @apply mb-6 pl-6 list-disc space-y-2;
+  }
+
+  .prose-article ol {
+    @apply mb-6 pl-6 list-decimal space-y-2;
+  }
+
+  .prose-article li {
+    @apply text-base leading-relaxed;
+  }
+
+  .prose-article blockquote {
+    @apply border-l-4 border-primary pl-6 py-2 my-6 bg-surface rounded-r-card text-text-secondary italic;
+  }
+
+  .prose-article img {
+    @apply rounded-card my-8 w-full max-w-reading mx-auto;
+  }
+
+  .prose-article figure {
+    @apply my-8;
+  }
+
+  .prose-article figcaption {
+    @apply text-center text-text-muted text-sm mt-2;
+  }
+
+  .prose-article pre {
+    @apply bg-secondary text-white rounded-card p-6 my-6 overflow-x-auto font-mono text-sm;
+  }
+
+  .prose-article code {
+    @apply font-mono text-sm bg-surface border border-border rounded px-1.5 py-0.5;
+  }
+
+  .prose-article pre code {
+    @apply bg-transparent border-none p-0;
+  }
+
+  .prose-article hr {
+    @apply my-10 border-border;
+  }
+
+  .prose-article strong {
+    @apply font-semibold text-secondary;
+  }
+
+  .prose-article table {
+    @apply w-full my-6 border-collapse text-sm;
+  }
+
+  .prose-article th {
+    @apply bg-surface border border-border px-4 py-3 text-left font-semibold text-secondary;
+  }
+
+  .prose-article td {
+    @apply border border-border px-4 py-3;
+  }
+
+  .prose-article tr:nth-child(even) td {
+    @apply bg-background;
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    @apply bg-gradient-to-r from-surface via-border to-surface bg-[length:1000px_100%] animate-shimmer rounded;
+  }
+}
