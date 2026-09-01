@@ -51,6 +51,11 @@ export const POST = withHandler(async (req: NextRequest, ctx: { params: { slug?:
   if (!rows[0]) throw apiError('Article not found', 404, 'NOT_FOUND');
   const art = rows[0];
 
+  // ---- Limited free mode: every published guide is free for any logged-in user (no points) ----
+  if (process.env.NEXT_PUBLIC_FREE_MODE === 'true') {
+    return ok({ success: true, freeMode: true, content: art.content });
+  }
+
   if (art.is_free) {
     return ok({ success: true, alreadyFree: true });
   }

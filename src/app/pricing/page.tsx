@@ -32,7 +32,36 @@ const FAQ = [
 ];
 
 export default async function PricingPage() {
+  const FREE_MODE = process.env.NEXT_PUBLIC_FREE_MODE === 'true';
   const packages = await getPackages();
+
+  if (FREE_MODE) {
+    return (
+      <div className="bg-background min-h-screen">
+        <div className="bg-secondary py-16">
+          <div className="max-w-container mx-auto px-4 text-center">
+            <Badge variant="accent" icon="\u2728" className="mb-4">Limited-Time Free Access</Badge>
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+              All guides are free right now.
+            </h1>
+            <p className="text-white/70 max-w-2xl mx-auto text-lg">
+              Sign in and read every deep China travel guide — no points, no payment needed.
+              Paid plans will open soon.
+            </p>
+          </div>
+        </div>
+        <div className="max-w-container mx-auto px-4 py-16">
+          <div className="max-w-2xl mx-auto bg-card rounded-2xl p-8 border border-border text-center">
+            <div className="text-4xl mb-4">🎉</div>
+            <p className="text-muted-foreground leading-relaxed">
+              Top-up &amp; paid plans are coming soon. For now, just explore — everything is free.
+            </p>
+          </div>
+        </div>
+        <AdSlot slotCode="AD-06" />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background min-h-screen">

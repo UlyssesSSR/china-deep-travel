@@ -33,7 +33,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   // Increment view count asynchronously
   incrementViewCount(article.id).catch(() => {});
 
-  const isLocked = !article.isUnlocked && !article.isFree;
+  const FREE_MODE = process.env.NEXT_PUBLIC_FREE_MODE === 'true';
+  const isLocked = !article.isUnlocked && !article.isFree && !FREE_MODE;
   const isLoggedIn = !!user;
   const canUnlock = article.canUnlock && isLoggedIn;
 
@@ -86,7 +87,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 {article.category.name}
               </Badge>
             )}
-            {article.isFree ? (
+            {article.isFree || FREE_MODE ? (
               <Badge variant="success">✓ Free</Badge>
             ) : article.isUnlocked ? (
               <Badge variant="success">✓ Unlocked</Badge>

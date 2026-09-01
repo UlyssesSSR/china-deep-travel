@@ -1,4 +1,5 @@
 import mysql from 'mysql2/promise';
+import * as fs from 'node:fs';
 
 /**
  * MySQL connection layer (mysql2/promise).
@@ -11,6 +12,11 @@ import mysql from 'mysql2/promise';
  * No connection is opened at import time, so `next build` / demo mode (no
  * DATABASE_URL) still work. Queries only fail at request time when the DB is
  * actually hit.
+ *
+ * TiDB Cloud SSL support: the connection URL may include
+ *   `?ssl-mode=VERIFY_IDENTITY&ssl-ca=/path/to/ca.pem`
+ * mysql2's built-in URL parser doesn't recognize these, so we strip them
+ * from the URL and pass them as a proper `ssl` object instead.
  */
 
 const url = process.env.DATABASE_URL;
@@ -19,13 +25,52 @@ if (!url) {
   console.warn('[db] DATABASE_URL is not set — database queries will fail at runtime (demo mode uses mock data).');
 }
 
+function parseSslFromUrl(databaseUrl: string): {
+  cleanUrl: string;
+  ssl?: { ca: string; rejectUnauthorized: boolean };
+} {
+  try {
+    const u = new URL(databaseUrl);
+    const sslMode = u.searchParams.get('ssl-mode');
+    const sslCa = u.searchParams.get('ssl-ca');
+    if (!sslMode && !sslCa) {
+      return { cleanUrl: databaseUrl };
+    }
+    // Strip our custom ssl-* params; let mysql2 parse the rest.
+    u.searchParams.delete('ssl-mode');
+    u.searchParams.delete('ssl-ca');
+    if (!sslCa) {
+      return { cleanUrl: u.toString() };
+    }
+    let ca: string;
+    try {
+      ca = fs.readFileSync(sslCa, 'utf8');
+    } catch (e) {
+      console.warn(`[db] could not read ssl-ca file ${sslCa}: ${(e as Error).message}`);
+      return { cleanUrl: u.toString() };
+    }
+    return {
+      cleanUrl: u.toString(),
+      ssl: {
+        ca,
+        rejectUnauthorized: sslMode !== 'REQUIRED',
+      },
+    };
+  } catch {
+    return { cleanUrl: databaseUrl };
+  }
+}
+
+const { cleanUrl, ssl } = url ? parseSslFromUrl(url) : { cleanUrl: '', ssl: undefined };
+
 const pool = mysql.createPool(
   url
     ? {
-        uri: url,
+        uri: cleanUrl,
         connectionLimit: 10,
         waitForConnections: true,
         connectTimeout: 5000,
+        ...(ssl ? { ssl } : {}),
       }
     : {
         host: '127.0.0.1',

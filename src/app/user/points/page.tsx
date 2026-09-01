@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import type { PointPackage } from '@/lib/types';
 
 export default function UserPointsPage() {
+  const FREE_MODE = process.env.NEXT_PUBLIC_FREE_MODE === 'true';
   const router = useRouter();
   const searchParams = useSearchParams();
   const [packages, setPackages] = useState<PointPackage[]>([]);
@@ -77,6 +78,15 @@ export default function UserPointsPage() {
       <p className="text-[#6B7280] mb-8">
         Purchase CPT Points to unlock premium travel guides. 1 USD = 30 CPT Points
       </p>
+
+      {FREE_MODE && (
+        <div className="mb-6 p-4 bg-blue-50 border border-blue-300 rounded-lg flex items-center gap-3">
+          <span className="text-2xl">🎉</span>
+          <p className="text-blue-700 font-medium">
+            Limited-time free access — every guide is free to read right now. Top-up opens soon.
+          </p>
+        </div>
+      )}
 
       {success && (
         <div className="mb-6 p-4 bg-green-50 border border-[#27AE60] rounded-lg flex items-center gap-3">
@@ -158,14 +168,20 @@ export default function UserPointsPage() {
 
               <button
                 onClick={() => handlePurchase(pkg.id)}
-                disabled={purchasing === pkg.id}
+                disabled={FREE_MODE || purchasing === pkg.id}
                 className={`w-full py-3 rounded-lg font-medium transition-colors ${
                   pkg.isPopular
                     ? 'bg-[#C0392B] text-white hover:bg-[#922B21]'
                     : 'bg-[#1A1A2E] text-white hover:bg-black'
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
               >
-                {purchasing === pkg.id ? 'Processing...' : pkg.isPopular ? 'Select — Popular' : 'Select'}
+                {purchasing === pkg.id
+                  ? 'Processing...'
+                  : FREE_MODE
+                  ? 'Coming soon'
+                  : pkg.isPopular
+                  ? 'Select — Popular'
+                  : 'Select'}
               </button>
             </div>
           ))}

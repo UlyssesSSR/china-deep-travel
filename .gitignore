@@ -47,3 +47,9 @@ subagent_artifacts_*.md
 DELIVERY.md
 DEPLOYMENT.md
 LOCAL_PREVIEW.md
+
+# TiDB Cloud CA cert (local dev)
+tidb-ca.pem
+# Migration dump files
+cpt-migrate-data.sql
+schema-clean.mysql.sql
