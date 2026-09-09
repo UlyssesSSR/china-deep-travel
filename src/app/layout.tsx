@@ -3,6 +3,10 @@ import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 
+// Vercel build 容器内无 MySQL，全部页面强制运行时 SSR，跳过 build 预渲染
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: {
     template: '%s | China Deep Travel',
