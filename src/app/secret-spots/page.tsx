@@ -14,7 +14,7 @@ const DAREN_AUTHOR = {
   name: 'Azhi — 300K km on China\'s Backroads',
   tagline: '300,000 km covered in 3 years — only writing about routes he\'s actually walked',
   avatar: '/uploads/daren-avatar-azi.jpg',
-  articleCount: 9
+  articleCount: 7
 };
 
 export default async function SecretSpotsPage() {
