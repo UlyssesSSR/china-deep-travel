@@ -58,14 +58,15 @@ export default function TermsPage() {
               <ul className="list-disc pl-6 space-y-1 text-sm">
                 <li>1 USD = 30 CPT Points (base rate)</li>
                 <li>Points are non-transferable and cannot be exchanged for cash</li>
-                <li>Points expire 12 months after the last account activity</li>
+                <li>Points never expire — they stay in your account until you spend them</li>
                 <li>Each article requires a specific number of points to unlock (default: 15 points)</li>
                 <li>Once unlocked, articles remain accessible indefinitely</li>
               </ul>
             </div>
             <p>
-              We reserve the right to modify the points system, including exchange rates and expiration
-              policies, with 30 days' notice via email to registered users.
+              We may update the points program from time to time (for example, exchange rates or new
+              features). If a change affects your existing points, we will email registered users at
+              least 30 days in advance.
             </p>
           </section>
 
@@ -94,10 +95,12 @@ export default function TermsPage() {
               <li>Content that is significantly different from its description</li>
             </ul>
             <p className="mt-4">
-              To request a refund, contact us within 7 days of purchase at{' '}
+              If you have a special concern about a recent purchase (for example, a duplicate charge
+              or technical error), contact us at{' '}
               <a href="mailto:support@chinadeeptravel.com" className="text-[#C0392B] hover:underline">
                 support@chinadeeptravel.com
-              </a>
+              </a>{' '}
+              and we will review your case individually.
             </p>
           </section>
 

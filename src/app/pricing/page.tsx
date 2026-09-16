@@ -23,7 +23,7 @@ const FAQ = [
   },
   {
     q: 'Can I get a refund?',
-    a: 'Unused points can be refunded within 30 days of purchase (see Terms of Service). Already-unlocked guides are non-refundable, but you can re-read them forever.'
+    a: 'We do not offer refunds on point purchases. However, points never expire — they stay in your account indefinitely until you use them. We recommend starting with a smaller package if you are unsure how many guides you will read. Free previews are available for all paid guides, so you can decide if a guide is worth unlocking before spending your points.'
   },
   {
     q: 'Why pay-per-guide instead of subscription?',

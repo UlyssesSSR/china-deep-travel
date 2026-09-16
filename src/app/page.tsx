@@ -42,7 +42,7 @@ const FAQ_TEASERS = [
   },
   {
     q: 'Can I request a refund?',
-    a: 'Unused points are refundable within 30 days of purchase. See our refund policy for full details.',
+    a: 'We do not offer refunds on point purchases. However, points never expire — they stay in your account indefinitely until you use them, so your balance is never wasted. Start with a small package if you are unsure how many guides you will read.',
     href: '/faq#refunds'
   }
 ];
