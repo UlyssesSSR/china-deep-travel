@@ -159,7 +159,8 @@ export async function getArticleBySlug(
   const row = rows[0];
   if (!row) return null;
 
-  const unlocked = !!row.is_free || (userId ? await isArticleUnlocked(userId, row.id) : false);
+  const FREE_MODE = process.env.NEXT_PUBLIC_FREE_MODE === 'true';
+  const unlocked = !!row.is_free || FREE_MODE || (userId ? await isArticleUnlocked(userId, row.id) : false);
 
   const card = mapArticleCard(row, unlocked);
   const balance = userId ? await getUserPoints(userId) : 0;

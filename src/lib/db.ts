@@ -67,6 +67,7 @@ const pool = mysql.createPool(
   url
     ? {
         uri: cleanUrl,
+        charset: 'utf8mb4',
         connectionLimit: 10,
         waitForConnections: true,
         connectTimeout: 5000,
@@ -76,6 +77,7 @@ const pool = mysql.createPool(
         host: '127.0.0.1',
         user: 'root',
         database: 'cpt_demo',
+        charset: 'utf8mb4',
         connectionLimit: 1,
         connectTimeout: 1000,
       }

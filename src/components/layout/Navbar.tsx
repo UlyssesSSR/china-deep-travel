@@ -56,6 +56,7 @@ export function Navbar() {
 
   const navLinks = [
     { href: '/guides', label: 'Guides' },
+    { href: '/secret-spots', label: 'Secret Spots' },
     { href: '/pricing', label: 'Pricing' },
     { href: '/about', label: 'About' },
     { href: '/faq', label: 'FAQ' }
