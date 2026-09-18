@@ -25,7 +25,7 @@ export default async function GuidesPage({ searchParams }: GuidesPageProps) {
   const offset = (page - 1) * PAGE_SIZE;
 
   const [{ articles, total }, categories] = await Promise.all([
-    getPublishedArticles({ category: category || undefined, cost, sort, limit: PAGE_SIZE, offset }),
+    getPublishedArticles({ category: category || undefined, exclude_category: 'secret-spots', cost, sort, limit: PAGE_SIZE, offset }),
     getCategories()
   ]);
 

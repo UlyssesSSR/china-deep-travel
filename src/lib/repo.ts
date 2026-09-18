@@ -31,6 +31,7 @@ export async function getCategories(): Promise<Category[]> {
 // ============================================================
 interface ListParams {
   category?: string | null;
+  exclude_category?: string | null;
   cost?: 'free' | 'paid' | 'all';
   sort?: string;
   page?: number;
@@ -58,6 +59,11 @@ export async function getPublishedArticles(params: ListParams): Promise<{
   if (params.category) {
     where.push(`a.category_id = (SELECT id FROM categories WHERE slug = ?)`);
     values.push(params.category);
+    idx++;
+  }
+  if (params.exclude_category) {
+    where.push(`a.category_id != (SELECT id FROM categories WHERE slug = ?)`);
+    values.push(params.exclude_category);
     idx++;
   }
   if (params.cost === 'free') where.push(`a.is_free = 1`);
